@@ -1,3 +1,20 @@
+// 多域名支援
+const SUPPORTED_DOMAINS = ['jita.soybeanmob.com', 'darts.soybeanmob.com'];
+const PRIMARY_DOMAIN = 'jita.soybeanmob.com';
+
+// 檢查並處理域名
+function handleDomainRedirect() {
+    const currentDomain = window.location.hostname;
+    console.log('當前訪問域名:', currentDomain);
+    
+    // 如果是支援的域名但不是主域名，且在生產環境
+    if (SUPPORTED_DOMAINS.includes(currentDomain) && currentDomain !== PRIMARY_DOMAIN && window.location.protocol === 'https:') {
+        console.log(`從 ${currentDomain} 重定向到主域名 ${PRIMARY_DOMAIN}`);
+        // 可選：重定向到主域名，或者直接在當前域名顯示
+        // window.location.href = `https://${PRIMARY_DOMAIN}${window.location.pathname}${window.location.search}`;
+    }
+}
+
 // 動態數據存儲
 let rawData = [];
 let currentData = [];
@@ -176,6 +193,9 @@ function safeConvertFloat(value) {
 
 // 初始化應用程式
 document.addEventListener('DOMContentLoaded', function() {
+    // 處理多域名支援
+    handleDomainRedirect();
+    
     setupEventListeners();
     loadData();
     
