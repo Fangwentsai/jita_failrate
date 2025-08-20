@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API測試</title>
+</head>
+<body>
+    <h1>API連接測試</h1>
+    <button onclick="testAPI()">測試API</button>
+    <div id="result"></div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '正在測試...';
+            
+            try {
+                console.log('開始測試API...');
+                const response = await fetch('http://localhost:5001/api/data');
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                console.log('API響應:', result);
+                
+                resultDiv.innerHTML = `
+                    <h2>API測試成功！</h2>
+                    <p>成功: ${result.success}</p>
+                    <p>數據項目數: ${result.data.length}</p>
+                    <p>第一個數據項: ${JSON.stringify(result.data[0], null, 2)}</p>
+                `;
+            } catch (error) {
+                console.error('API測試失敗:', error);
+                resultDiv.innerHTML = `<h2>API測試失敗</h2><p>錯誤: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

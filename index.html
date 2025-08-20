@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>各斗篷Fail Rate 視覺化圖表</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>各斗篷Fail Rate 視覺化圖表</h1>
+            <p>基於Google Sheets數據的互動式分析</p>
+        </header>
+        
+        <div class="controls">
+            <div class="control-row">
+                <div class="control-group">
+                    <label for="cloakFilter">斗篷篩選：</label>
+                    <select id="cloakFilter">
+                        <option value="jb">JB系列</option>
+                        <option value="jw">JW系列</option>
+                        <option value="jg">JG系列</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- JB系列子選項 -->
+            <div class="control-group sub-cloak-group" id="jbSubOptions" style="display: none;">
+                <label>JB系列斗篷選擇：</label>
+                <div class="checkbox-grid">
+                    <label><input type="checkbox" value="jt01" checked> JT01</label>
+                    <label><input type="checkbox" value="jt02" checked> JT02</label>
+                    <label><input type="checkbox" value="jt03" checked> JT03</label>
+                    <label><input type="checkbox" value="jt04" checked> JT04</label>
+                    <label><input type="checkbox" value="jt05" checked> JT05</label>
+                    <label><input type="checkbox" value="jt06" checked> JT06</label>
+                    <label><input type="checkbox" value="jt07" checked> JT07</label>
+                    <label><input type="checkbox" value="jt08" checked> JT08</label>
+                    <label><input type="checkbox" value="jt09" checked> JT09</label>
+                    <label><input type="checkbox" value="jt10" checked> JT10</label>
+                    <label><input type="checkbox" value="jt11" checked> JT11</label>
+                    <label><input type="checkbox" value="jt12" checked> JT12</label>
+                    <label><input type="checkbox" value="jt13" checked> JT13</label>
+                </div>
+                <div class="sub-controls">
+                    <button type="button" onclick="toggleAllCloaks('jb', true)">全選</button>
+                    <button type="button" onclick="toggleAllCloaks('jb', false)">全不選</button>
+                    <button type="button" class="analysis-btn" onclick="handleAnalysisMode('oldAFace')">舊A面(01-08)</button>
+                    <button type="button" class="analysis-btn" onclick="handleAnalysisMode('newAFace')">新A面(09-13)</button>
+                    <button type="button" class="analysis-btn" onclick="toggleDataLabels()">顯示資料標籤</button>
+                </div>
+            </div>
+            
+            <!-- JW系列子選項 -->
+            <div class="control-group sub-cloak-group" id="jwSubOptions" style="display: none;">
+                <label>JW系列斗篷選擇：</label>
+                <div class="checkbox-grid">
+                    <label><input type="checkbox" value="jtw01" checked> JTW01</label>
+                    <label><input type="checkbox" value="jtw02" checked> JTW02</label>
+                    <label><input type="checkbox" value="jtw03" checked> JTW03</label>
+                    <label><input type="checkbox" value="jtw04" checked> JTW04</label>
+                    <label><input type="checkbox" value="jtw05" checked> JTW05</label>
+                    <label><input type="checkbox" value="jtw06" checked> JTW06</label>
+                    <label><input type="checkbox" value="jtw07" checked> JTW07</label>
+                    <label><input type="checkbox" value="jtw08" checked> JTW08</label>
+                    <label><input type="checkbox" value="jtw09" checked> JTW09</label>
+                    <label><input type="checkbox" value="jtw10" checked> JTW10</label>
+                    <label><input type="checkbox" value="jtw11" checked> JTW11</label>
+                    <label><input type="checkbox" value="jtw12" checked> JTW12</label>
+                    <label><input type="checkbox" value="jtw13" checked> JTW13</label>
+                </div>
+                <div class="sub-controls">
+                    <button type="button" onclick="toggleAllCloaks('jw', true)">全選</button>
+                    <button type="button" onclick="toggleAllCloaks('jw', false)">全不選</button>
+                    <button type="button" class="analysis-btn" onclick="handleAnalysisMode('oldAFace')">舊A面(01-08)</button>
+                    <button type="button" class="analysis-btn" onclick="handleAnalysisMode('newAFace')">新A面(09-13)</button>
+                    <button type="button" class="analysis-btn" onclick="toggleDataLabels()">顯示資料標籤</button>
+                </div>
+            </div>
+            
+            <!-- JG系列子選項 -->
+            <div class="control-group sub-cloak-group" id="jgSubOptions" style="display: none;">
+                <label>JG系列斗篷選擇：</label>
+                <div class="checkbox-grid">
+                    <label><input type="checkbox" value="jtg01" checked> JTG01</label>
+                    <label><input type="checkbox" value="jtg02" checked> JTG02</label>
+                    <label><input type="checkbox" value="jtg03" checked> JTG03</label>
+                    <label><input type="checkbox" value="jtg04" checked> JTG04</label>
+                    <label><input type="checkbox" value="jtg05" checked> JTG05</label>
+                    <label><input type="checkbox" value="jtg06" checked> JTG06</label>
+                    <label><input type="checkbox" value="jtg07" checked> JTG07</label>
+                    <label><input type="checkbox" value="jtg08" checked> JTG08</label>
+                    <label><input type="checkbox" value="jtg09" checked> JTG09</label>
+                    <label><input type="checkbox" value="jtg10" checked> JTG10</label>
+                    <label><input type="checkbox" value="jtg11" checked> JTG11</label>
+                    <label><input type="checkbox" value="jtg12" checked> JTG12</label>
+                    <label><input type="checkbox" value="jtg13" checked> JTG13</label>
+                </div>
+                <div class="sub-controls">
+                    <button type="button" onclick="toggleAllCloaks('jg', true)">全選</button>
+                    <button type="button" onclick="toggleAllCloaks('jg', false)">全不選</button>
+                    <button type="button" class="analysis-btn" onclick="handleAnalysisMode('oldAFace')">舊A面(01-08)</button>
+                    <button type="button" class="analysis-btn" onclick="handleAnalysisMode('newAFace')">新A面(09-13)</button>
+                    <button type="button" class="analysis-btn" onclick="toggleDataLabels()">顯示資料標籤</button>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="chart-container">
+            <canvas id="failRateChart"></canvas>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3>平均Fail Rate</h3>
+                <p id="avgFailRate">--</p>
+            </div>
+            <div class="stat-card">
+                <h3>最高Fail Rate</h3>
+                <p id="maxFailRate">--</p>
+            </div>
+            <div class="stat-card">
+                <h3>最低Fail Rate</h3>
+                <p id="minFailRate">--</p>
+            </div>
+            <div class="stat-card">
+                <h3>總流量</h3>
+                <p id="totalVolume">--</p>
+            </div>
+        </div>
+        
+        <div class="data-table">
+            <h3>數據表格</h3>
+            <div class="table-container">
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>斗篷</th>
+                            <th>Meta流量</th>
+                            <th>GA4流量</th>
+                            <th>Fail Rate (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
