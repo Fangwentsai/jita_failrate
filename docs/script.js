@@ -484,20 +484,20 @@ function updateChart() {
     
     // 定義斗篷系列和顏色
     const cloakColors = {
-        // JB系列 - 紅色系漸變
-        jt01: '#FF1744', jt02: '#FF5722', jt03: '#FF6384', jt04: '#FF7043', jt05: '#FF8A65',
-        jt06: '#FFAB91', jt07: '#FFCC02', jt08: '#FFD54F', jt09: '#FFE082', jt10: '#FFF176',
-        jt11: '#FFFF8D', jt12: '#F4FF81', jt13: '#CCFF90',
+        // JB系列 - 高對比度彩虹色
+        jt01: '#FF0000', jt02: '#FF4500', jt03: '#FF8C00', jt04: '#FFD700', jt05: '#ADFF2F',
+        jt06: '#00FF7F', jt07: '#00CED1', jt08: '#1E90FF', jt09: '#4169E1', jt10: '#8A2BE2',
+        jt11: '#DA70D6', jt12: '#FF1493', jt13: '#DC143C',
         
-        // JW系列 - 藍色系漸變
-        jtw01: '#1565C0', jtw02: '#1976D2', jtw03: '#1E88E5', jtw04: '#2196F3', jtw05: '#36A2EB',
-        jtw06: '#42A5F5', jtw07: '#64B5F6', jtw08: '#81C784', jtw09: '#90CAF9', jtw10: '#A5D6A7',
-        jtw11: '#BBDEFB', jtw12: '#C8E6C9', jtw13: '#E1F5FE',
+        // JW系列 - 藍色到紫色漸變
+        jtw01: '#000080', jtw02: '#0000CD', jtw03: '#0000FF', jtw04: '#1E90FF', jtw05: '#00BFFF',
+        jtw06: '#87CEEB', jtw07: '#4682B4', jtw08: '#6495ED', jtw09: '#7B68EE', jtw10: '#9370DB',
+        jtw11: '#8B008B', jtw12: '#9932CC', jtw13: '#BA55D3',
         
-        // JG系列 - 綠/黃色系漸變
-        jtg01: '#2E7D32', jtg02: '#388E3C', jtg03: '#43A047', jtg04: '#4CAF50', jtg05: '#66BB6A',
-        jtg06: '#81C784', jtg07: '#A5D6A7', jtg08: '#C8E6C9', jtg09: '#E8F5E8', jtg10: '#F1F8E9',
-        jtg11: '#F9FBE7', jtg12: '#FFFDE7', jtg13: '#FFF8E1'
+        // JG系列 - 綠色到橙色漸變
+        jtg01: '#006400', jtg02: '#228B22', jtg03: '#32CD32', jtg04: '#7CFC00', jtg05: '#ADFF2F',
+        jtg06: '#FFFF00', jtg07: '#FFD700', jtg08: '#FFA500', jtg09: '#FF8C00', jtg10: '#FF7F50',
+        jtg11: '#FF6347', jtg12: '#FF4500', jtg13: '#FF0000'
     };
     
     const cloakSeries = {
