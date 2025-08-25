@@ -482,23 +482,23 @@ function updateChart() {
     console.log('labels:', labels);
     console.log('dataToUse sample:', dataToUse.slice(0, 3));
     
-    // 定義斗篷系列和顏色
-    const cloakColors = {
-        // JB系列 - 高對比度彩虹色
-        jt01: '#FF0000', jt02: '#FF4500', jt03: '#FF8C00', jt04: '#FFD700', jt05: '#ADFF2F',
-        jt06: '#00FF7F', jt07: '#00CED1', jt08: '#1E90FF', jt09: '#4169E1', jt10: '#8A2BE2',
-        jt11: '#DA70D6', jt12: '#FF1493', jt13: '#DC143C',
-        
-        // JW系列 - 藍色到紫色漸變
-        jtw01: '#000080', jtw02: '#0000CD', jtw03: '#0000FF', jtw04: '#1E90FF', jtw05: '#00BFFF',
-        jtw06: '#87CEEB', jtw07: '#4682B4', jtw08: '#6495ED', jtw09: '#7B68EE', jtw10: '#9370DB',
-        jtw11: '#8B008B', jtw12: '#9932CC', jtw13: '#BA55D3',
-        
-        // JG系列 - 綠色到橙色漸變
-        jtg01: '#006400', jtg02: '#228B22', jtg03: '#32CD32', jtg04: '#7CFC00', jtg05: '#ADFF2F',
-        jtg06: '#FFFF00', jtg07: '#FFD700', jtg08: '#FFA500', jtg09: '#FF8C00', jtg10: '#FF7F50',
-        jtg11: '#FF6347', jtg12: '#FF4500', jtg13: '#FF0000'
-    };
+    // 定義高對比度顏色池
+    const colorPool = [
+        '#FF0000', '#00FF00', '#0000FF', '#FFD700', '#FF4500', '#8A2BE2', 
+        '#00CED1', '#FF1493', '#32CD32', '#FF8C00', '#4169E1', '#DC143C',
+        '#00FF7F', '#DA70D6', '#1E90FF', '#ADFF2F', '#9370DB', '#FF6347',
+        '#228B22', '#BA55D3', '#006400', '#FF7F50', '#0000CD', '#FFA500'
+    ];
+    
+    // 根據選中的斗篷動態分配顏色
+    function assignColorsToSelectedCloaks(selectedCloaks) {
+        const cloakColors = {};
+        selectedCloaks.forEach((cloak, index) => {
+            // 使用模運算確保不會超出顏色池範圍
+            cloakColors[cloak] = colorPool[index % colorPool.length];
+        });
+        return cloakColors;
+    }
     
     const cloakSeries = {
         jb: { name: 'JB系列', color: '#FF6384', cloaks: ['jt01', 'jt02', 'jt03', 'jt04', 'jt05', 'jt06', 'jt07', 'jt08', 'jt09', 'jt10', 'jt11', 'jt12', 'jt13'] },
@@ -581,6 +581,9 @@ function updateChart() {
                 // 正常模式：只顯示選中系列的選中斗篷
                 const selectedCloaks = getSelectedCloaks(cloakFilter);
                 console.log(`${series.name}選中的斗篷:`, selectedCloaks);
+                
+                // 為選中的斗篷動態分配顏色
+                const cloakColors = assignColorsToSelectedCloaks(selectedCloaks);
                 
                 selectedCloaks.forEach(cloak => {
                     const data = dataToUse.map(item => {
