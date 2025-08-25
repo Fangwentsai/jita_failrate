@@ -566,7 +566,7 @@ function updateChart() {
                             label: `${series.name}(09-13)`,
                             data: data,
                             borderColor: newFaceColor,
-                            backgroundColor: newFaceColor + '40',
+                            backgroundColor: newFaceColor + 'FF',
                             borderWidth: 3,
                             borderDash: [5, 5],
                             fill: false,
