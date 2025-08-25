@@ -558,10 +558,10 @@ function updateChart() {
                     });
                     
                     if (data.some(d => d !== null && d > 0)) {
-                        // 使用淺色版本的系列顏色
-                        const newFaceColor = series.color === '#FF6384' ? '#FFCDD2' : 
-                                           series.color === '#36A2EB' ? '#BBDEFB' : 
-                                           '#C8E6C9'; // 對應 JG 系列
+                        // 使用明亮鮮豔的顏色讓新A面更清楚
+                        const newFaceColor = series.color === '#FF6384' ? '#FF4081' : 
+                                           series.color === '#36A2EB' ? '#2196F3' : 
+                                           '#4CAF50'; // 對應 JG 系列
                         datasets.push({
                             label: `${series.name}(09-13)`,
                             data: data,
