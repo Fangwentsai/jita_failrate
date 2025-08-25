@@ -483,6 +483,23 @@ function updateChart() {
     console.log('dataToUse sample:', dataToUse.slice(0, 3));
     
     // 定義斗篷系列和顏色
+    const cloakColors = {
+        // JB系列 - 紅色系漸變
+        jt01: '#FF1744', jt02: '#FF5722', jt03: '#FF6384', jt04: '#FF7043', jt05: '#FF8A65',
+        jt06: '#FFAB91', jt07: '#FFCC02', jt08: '#FFD54F', jt09: '#FFE082', jt10: '#FFF176',
+        jt11: '#FFFF8D', jt12: '#F4FF81', jt13: '#CCFF90',
+        
+        // JW系列 - 藍色系漸變
+        jtw01: '#1565C0', jtw02: '#1976D2', jtw03: '#1E88E5', jtw04: '#2196F3', jtw05: '#36A2EB',
+        jtw06: '#42A5F5', jtw07: '#64B5F6', jtw08: '#81C784', jtw09: '#90CAF9', jtw10: '#A5D6A7',
+        jtw11: '#BBDEFB', jtw12: '#C8E6C9', jtw13: '#E1F5FE',
+        
+        // JG系列 - 綠/黃色系漸變
+        jtg01: '#2E7D32', jtg02: '#388E3C', jtg03: '#43A047', jtg04: '#4CAF50', jtg05: '#66BB6A',
+        jtg06: '#81C784', jtg07: '#A5D6A7', jtg08: '#C8E6C9', jtg09: '#E8F5E8', jtg10: '#F1F8E9',
+        jtg11: '#F9FBE7', jtg12: '#FFFDE7', jtg13: '#FFF8E1'
+    };
+    
     const cloakSeries = {
         jb: { name: 'JB系列', color: '#FF6384', cloaks: ['jt01', 'jt02', 'jt03', 'jt04', 'jt05', 'jt06', 'jt07', 'jt08', 'jt09', 'jt10', 'jt11', 'jt12', 'jt13'] },
         jw: { name: 'JW系列', color: '#36A2EB', cloaks: ['jtw01', 'jtw02', 'jtw03', 'jtw04', 'jtw05', 'jtw06', 'jtw07', 'jtw08', 'jtw09', 'jtw10', 'jtw11', 'jtw12', 'jtw13'] },
@@ -510,11 +527,15 @@ function updateChart() {
                     });
                     
                     if (data.some(d => d !== null && d > 0)) {
+                        // 使用深色版本的系列顏色
+                        const oldFaceColor = series.color === '#FF6384' ? '#B71C1C' : 
+                                           series.color === '#36A2EB' ? '#0D47A1' : 
+                                           '#1B5E20'; // 對應 JG 系列
                         datasets.push({
                             label: `${series.name}(01-08)`,
                             data: data,
-                            borderColor: series.color,
-                            backgroundColor: series.color + '20',
+                            borderColor: oldFaceColor,
+                            backgroundColor: oldFaceColor + '20',
                             borderWidth: 3,
                             fill: false,
                             tension: 0.4,
@@ -537,11 +558,15 @@ function updateChart() {
                     });
                     
                     if (data.some(d => d !== null && d > 0)) {
+                        // 使用淺色版本的系列顏色
+                        const newFaceColor = series.color === '#FF6384' ? '#FFCDD2' : 
+                                           series.color === '#36A2EB' ? '#BBDEFB' : 
+                                           '#C8E6C9'; // 對應 JG 系列
                         datasets.push({
                             label: `${series.name}(09-13)`,
                             data: data,
-                            borderColor: series.color,
-                            backgroundColor: series.color + '40',
+                            borderColor: newFaceColor,
+                            backgroundColor: newFaceColor + '40',
                             borderWidth: 3,
                             borderDash: [5, 5],
                             fill: false,
@@ -569,11 +594,12 @@ function updateChart() {
                     
                     // 只添加有數據的斗篷
                     if (data.some(d => d !== null && d > 0)) {
+                        const cloakColor = cloakColors[cloak] || series.color;
                         datasets.push({
                             label: cloak,
                             data: data,
-                            borderColor: series.color,
-                            backgroundColor: series.color + '20',
+                            borderColor: cloakColor,
+                            backgroundColor: cloakColor + '20',
                             borderWidth: 2,
                             fill: false,
                             tension: 0.4,
